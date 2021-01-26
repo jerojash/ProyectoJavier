@@ -13,7 +13,7 @@ public  abstract class Usuario {
     
     //Atributos
         protected int cedula ;
-        protected String nombre, apellido;
+        protected String nombre, apellido, usuario;
         protected static ArrayList<Usuario> lista = new ArrayList<Usuario>();
         
     //Metodos

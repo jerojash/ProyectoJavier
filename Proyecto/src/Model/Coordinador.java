@@ -8,9 +8,8 @@ package Model;
 
 public class Coordinador extends Usuario{
     //Atributo
-        protected String usuario, password;
-        
-    
+        protected String password;
+
     //Metodos
         
         //Constructores
@@ -95,11 +94,33 @@ public class Coordinador extends Usuario{
             
         }
         
-        public void acceder(){
+        public Usuario buscarUsuario(String usuario){
+            for (Usuario iterador : Usuario.lista){
+                if(iterador.usuario.equals(usuario)) return iterador;
+            }
+            return null;
+        }
+        
+        public Coordinador buscarCoordinador(String usuario){
+            
+            for (Usuario iterador : Usuario.lista){
+                if(iterador.usuario.equals(usuario)) return (Coordinador)iterador;
+            }
+            return null;
+        }
+        
+        public int acceder(String usuario, String password){ //Retorna 0 si se puede acceder, 1 si la contra es incorrecta, 2 si no encontro el usuario
+            
+            Coordinador user = buscarCoordinador(usuario);
+            
+            if (user!=null){ //Quiere decir que encontro un usuario
+                if (user.password.equals(password)) return 0;
+                else return 1;
+            } else return 2;
             
         }
         
-    @Override //Hola asly salu2 desde tu culito bb
+    @Override //Sobre carga del metodo registrar
         public void registrar(String nombre, String apellido, int cedula){
 
         }
