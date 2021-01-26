@@ -99,7 +99,7 @@ public class Coordinador extends Usuario{
             
         }
         
-    @Override
+    @Override //Hola asly salu2 desde tu culito bb
         public void registrar(String nombre, String apellido, int cedula){
 
         }
