@@ -13,16 +13,13 @@ public class Estudiante extends Usuario implements Prestamo{
     
         //Constructor
             
-            public Estudiante(String nombre, String apellido, int cedula){
-                this.nombre = nombre;
-                this.apellido = apellido;
-                this.cedula = cedula;
-                
-            }
-
-        public void mostrarPerfil() {
+        public Estudiante(int cedula, String nombre, String apellido, String usuario) {
+        super(cedula, nombre, apellido, usuario);
         
         }
+
+    public void mostrarPerfil() {
+    }
         
         public void pedirPrestamo(){
             
@@ -32,8 +29,8 @@ public class Estudiante extends Usuario implements Prestamo{
             
         };
         
-        public void registrar(String nombre, String apellido, int cedula){
-            Estudiante nuevoEstudiante = new Estudiante(nombre, apellido, cedula);
+        public void registrar(String nombre, String apellido, String usuario, int cedula){
+            Estudiante nuevoEstudiante = new Estudiante(cedula, nombre, apellido, usuario);
             lista.add(nuevoEstudiante);
             
             

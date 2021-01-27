@@ -12,16 +12,15 @@ public class Profesor extends Usuario{
         
         //Constructores
             
-            public Profesor(String nombre, String apellido, int cedula){
-                this.nombre = nombre;
-                this.apellido = apellido;
-                this.cedula = cedula;
-                
-            }
+        
     
-        public void mostrarPerfil(){
+        public Profesor(int cedula, String nombre, String apellido, String usuario){
+        super(cedula, nombre, apellido, usuario);
             
         }
+
+    public void mostrarPerfil() {
+    }
         
         public void pedirPrestamo(){
             
@@ -31,8 +30,8 @@ public class Profesor extends Usuario{
             
         };
         
-        public void registrar(String nombre, String apellido, int cedula){
-            Profesor nuevoProfesor = new Profesor(nombre, apellido, cedula);
+        public void registrar(String nombre, String apellido, String usuario, int cedula){
+            Profesor nuevoProfesor = new Profesor(cedula, nombre, apellido, usuario);
             lista.add(nuevoProfesor);
         }
 }

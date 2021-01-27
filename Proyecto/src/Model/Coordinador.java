@@ -6,6 +6,8 @@ Javier Rojas
 
 package Model;
 
+import java.util.ArrayList;
+
 public class Coordinador extends Usuario{
     //Atributo
         protected String password;
@@ -14,14 +16,12 @@ public class Coordinador extends Usuario{
         
         //Constructores
 
-            public Coordinador(String nombre, String apellido, String usuario, String password, int cedula) {
-                this.nombre = nombre;
-                this.apellido = apellido;
-                this.usuario = usuario;
-                this.password = password;
-                //Validar que el nombre de usuario sea unico
-                this.cedula = cedula;
-            }
+        public Coordinador(String password, int cedula, String nombre, String apellido, String usuario) {
+            super(cedula, nombre, apellido, usuario);
+            this.password = password;
+        }
+
+            
         
         public void prestamo(int dd, int mm, int yy, Usuario persona, Vehiculo vehiculo){ //Para registrar vehiculo
             vehiculo.setDisponible(false);
@@ -90,10 +90,6 @@ public class Coordinador extends Usuario{
             
         }
         
-        public void mostrarDatos(){
-            
-        }
-        
         public Usuario buscarUsuario(String usuario){
             for (Usuario iterador : Usuario.lista){
                 if(iterador.usuario.equals(usuario)) return iterador;
@@ -121,20 +117,49 @@ public class Coordinador extends Usuario{
         }
         
     @Override //Sobre carga del metodo registrar
-        public void registrar(String nombre, String apellido, int cedula){
-
+        public void registrar(String nombre, String apellido, String usuario, int cedula ){}
+        
+        public void registrar(String nombre, String apellido, String usuario, int cedula, String password){
+            Coordinador cord = new Coordinador(password, cedula, nombre, apellido, usuario); //Creo instancia
+            Usuario.lista.add(cord); //Agrego a la lista el nuevo usuario
         }
         
-        public void salir(){
-            
-        }
-        
-        public void editarPerfil(){
-            
+        public void editarPerfil(String nombre, String apellido, String usuario, int cedula, String password, Coordinador coord){
+            coord.setApellido(apellido);
+            coord.setCedula(cedula);
+            coord.setNombre(nombre);
+            coord.setPassword(password);
+            coord.setUsuario(usuario);
         }
         
         public void mostrarPerfil(){
             
         };
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public static void setLista(ArrayList<Usuario> lista) {
+        Usuario.lista = lista;
+    }
+        
+        
         
 }
