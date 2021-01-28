@@ -2,13 +2,17 @@ package Vista;
 
 import Model.Coordinador;
 import Model.Usuario;
+import Controller.Control;
 
 public class Inicio extends javax.swing.JFrame {
-    Usuario regUser;
-    Coordinador coordinadorActual;
+//    Usuario regUser;
+//    Coordinador coordinadorActual;
+    
+    Control control;
     
     public Inicio() {
         initComponents();
+        control = new Control(User, Clave);
         this.setLocationRelativeTo(null);
     }
 
@@ -185,9 +189,14 @@ public class Inicio extends javax.swing.JFrame {
 
     private void InicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioSesionActionPerformed
         //if (verificarUsuario) (verificarContrasena) {
-        MenuPrincipal ventana = new MenuPrincipal();
-        ventana.setVisible(true);
-        this.setVisible(false);
+        
+        control.Prueba(User);
+        
+//        MenuPrincipal ventana = new MenuPrincipal();
+//        ventana.setVisible(true);
+//        this.setVisible(false);
+        
+        
         //}
         //else{
         //anuncio error, algo malo o registrarse
