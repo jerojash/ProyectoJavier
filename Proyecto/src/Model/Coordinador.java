@@ -23,7 +23,7 @@ public class Coordinador extends Usuario{
 
             
         
-        public void prestamo(int dd, int mm, int yy, Usuario persona, Vehiculo vehiculo){ //Para registrar vehiculo
+        public void prestamo(int dd, int mm, int yy, Usuario persona, Vehiculo vehiculo){ //Para prestar vehiculo
             vehiculo.setDisponible(false);
             
             Registro reg = new Registro(vehiculo, persona, dd, mm, yy);
@@ -32,7 +32,7 @@ public class Coordinador extends Usuario{
             
         }
         
-        public void prestamo(int dd, int mm, int yy, Usuario persona, Instrumento instrumento){ //Para registrar instrumentos
+        public void prestamo(int dd, int mm, int yy, Usuario persona, Instrumento instrumento){ //Para prestar instrumentos
             instrumento.setDisponible(false);
             
             Registro reg = new Registro(instrumento, persona, dd, mm, yy);
@@ -40,14 +40,14 @@ public class Coordinador extends Usuario{
             Registro.addLista(reg);
         }
         
-        public Bien buscar(int ID){
+        public Bien buscar(int ID){ //Para buscar un bien
             for(Bien iterador: Bien.lista){
                 if(iterador.ID == ID) return iterador;
             }
             return null;
         }
         
-        public void recibir(int ID){
+        public void recibir(int ID){ //Recibir un bien
             Bien bien = buscar(ID);
             bien.setDisponible(true);
             
@@ -90,14 +90,14 @@ public class Coordinador extends Usuario{
             
         }
         
-        public Usuario buscarUsuario(String usuario){
+        public static Usuario buscarUsuario(String usuario){ //Buscar un usuario
             for (Usuario iterador : Usuario.lista){
                 if(iterador.usuario.equals(usuario)) return iterador;
             }
             return null;
         }
         
-        public Coordinador buscarCoordinador(String usuario){
+        public static Coordinador buscarCoordinador(String usuario){
             
             for (Usuario iterador : Usuario.lista){
                 if(iterador.usuario.equals(usuario)) return (Coordinador)iterador;
@@ -119,7 +119,7 @@ public class Coordinador extends Usuario{
     @Override //Sobre carga del metodo registrar
         public void registrar(String nombre, String apellido, String usuario, int cedula ){}
         
-        public void registrar(String nombre, String apellido, String usuario, int cedula, String password){
+        public static void registrar(String nombre, String apellido, String usuario, String password, int cedula){
             Coordinador cord = new Coordinador(password, cedula, nombre, apellido, usuario); //Creo instancia
             Usuario.lista.add(cord); //Agrego a la lista el nuevo usuario
         }
@@ -159,7 +159,12 @@ public class Coordinador extends Usuario{
     public static void setLista(ArrayList<Usuario> lista) {
         Usuario.lista = lista;
     }
+
+    public String getPassword() {
+        return password;
+    }
         
+    
         
         
 }

@@ -1,7 +1,6 @@
 package Vista;
 
 import Model.Coordinador;
-import Model.Usuario;
 import Controller.Control;
 
 public class Inicio extends javax.swing.JFrame {
@@ -182,25 +181,16 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_UserActionPerformed
 
     private void OlvidoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OlvidoCActionPerformed
-        ClaveNueva ventana = new ClaveNueva();
-        ventana.setVisible(true);
-        this.setVisible(false);
+        control.olvidoClave(this);
+//        ClaveNueva ventana = new ClaveNueva();
+//        ventana.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_OlvidoCActionPerformed
 
     private void InicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioSesionActionPerformed
-        //if (verificarUsuario) (verificarContrasena) {
         
-        control.Prueba(User);
+        control.ingresar(this);
         
-//        MenuPrincipal ventana = new MenuPrincipal();
-//        ventana.setVisible(true);
-//        this.setVisible(false);
-        
-        
-        //}
-        //else{
-        //anuncio error, algo malo o registrarse
-        //}
     }//GEN-LAST:event_InicioSesionActionPerformed
 
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
@@ -219,6 +209,7 @@ public class Inicio extends javax.swing.JFrame {
 
     
     public static void main(String args[]) {
+        Coordinador.registrar("javier", "asd", "jerojas", "123", 23);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
