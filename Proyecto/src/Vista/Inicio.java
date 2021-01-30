@@ -2,6 +2,7 @@ package Vista;
 
 import Model.Coordinador;
 import Controller.Control;
+import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
 //    Usuario regUser;
