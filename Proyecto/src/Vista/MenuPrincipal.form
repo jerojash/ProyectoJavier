@@ -242,16 +242,19 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel10" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel10" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Vehiculos" min="-2" pref="112" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel11" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="Estudiantes" min="-2" pref="103" max="-2" attributes="0"/>
-                                          <Component id="Profesores" min="-2" pref="103" max="-2" attributes="0"/>
-                                          <Component id="jButton6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="Vehiculos" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
-                                          <Component id="Instrumentos" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="Coordinadores" alignment="0" pref="112" max="32767" attributes="0"/>
+                                          <Component id="Estudiantes" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="Profesores" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="Instrumentos" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -295,12 +298,12 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Estudiantes" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="Coordinadores" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                               <Component id="Vehiculos" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Instrumentos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -382,10 +385,13 @@
                 <Property name="text" type="java.lang.String" value="Bienes"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton6">
+            <Component class="javax.swing.JButton" name="Coordinadores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Coordinadores"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CoordinadoresActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>

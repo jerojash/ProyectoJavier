@@ -25,7 +25,4 @@ public  abstract class Usuario {
         this.apellido = apellido;
         this.usuario = usuario;
     }
-        
-        
-        
 }

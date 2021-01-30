@@ -162,9 +162,5 @@ public class Coordinador extends Usuario{
 
     public String getPassword() {
         return password;
-    }
-        
-    
-        
-        
+    }      
 }

@@ -1,4 +1,3 @@
-
 package Model;
 
 import java.util.ArrayList;
@@ -25,7 +24,4 @@ public class Registro {
     public Bien getBien() {
         return bien;
     }
-    
-    
-    
 }

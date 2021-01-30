@@ -64,7 +64,4 @@ public class Bien {
         this.disponible = disponible;
         //ola ashly
     }
-        
-        
-        
 }
