@@ -97,6 +97,13 @@ public class Coordinador extends Usuario{
             return null;
         }
         
+        public static Usuario buscarCedula(int cedula){ //Buscar un usuario por su numero de cedula
+            for (Usuario iterador : Usuario.lista){
+                if(iterador.cedula==cedula) return iterador;
+            }
+            return null;
+        }
+        
         public static Coordinador buscarCoordinador(String usuario){
             
             for (Usuario iterador : Usuario.lista){
@@ -105,7 +112,7 @@ public class Coordinador extends Usuario{
             return null;
         }
         
-        public int acceder(String usuario, String password){ //Retorna 0 si se puede acceder, 1 si la contra es incorrecta, 2 si no encontro el usuario
+        public static int acceder(String usuario, String password){ //Retorna 0 si se puede acceder, 1 si la contra es incorrecta, 2 si no encontro el usuario
             
             Coordinador user = buscarCoordinador(usuario);
             
@@ -124,12 +131,12 @@ public class Coordinador extends Usuario{
             Usuario.lista.add(cord); //Agrego a la lista el nuevo usuario
         }
         
-        public void editarPerfil(String nombre, String apellido, String usuario, int cedula, String password, Coordinador coord){
-            coord.setApellido(apellido);
-            coord.setCedula(cedula);
-            coord.setNombre(nombre);
-            coord.setPassword(password);
-            coord.setUsuario(usuario);
+        public void editarPerfil(String nombre, String apellido, String usuario, int cedula, String password){
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.usuario = usuario;
+            this.cedula = cedula;
+            this.password = password;
         }
         
         public void mostrarPerfil(){
@@ -163,4 +170,26 @@ public class Coordinador extends Usuario{
     public String getPassword() {
         return password;
     }      
+
+    public int getCedula() {
+        return cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public static ArrayList<Usuario> getLista() {
+        return lista;
+    }
+    
+    
 }

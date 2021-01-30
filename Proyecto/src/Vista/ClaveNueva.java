@@ -9,6 +9,7 @@ public class ClaveNueva extends javax.swing.JFrame {
     public ClaveNueva() {
         initComponents();
         control = new Control(Clave, VerificarC, Usuario);
+        //Control.setControladores(control);
         this.setLocationRelativeTo(null);
     }
     
@@ -144,9 +145,6 @@ public class ClaveNueva extends javax.swing.JFrame {
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         control.cambiarClave(this);
-        Inicio ventana = new Inicio();
-        ventana.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed

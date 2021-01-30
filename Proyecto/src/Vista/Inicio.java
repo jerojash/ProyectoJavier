@@ -13,6 +13,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         control = new Control(User, Clave);
+        //Control.setControladores(control);
         this.setLocationRelativeTo(null);
     }
 
@@ -186,9 +187,6 @@ public class Inicio extends javax.swing.JFrame {
 
     private void OlvidoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OlvidoCActionPerformed
         control.olvidoClave(this);
-//        ClaveNueva ventana = new ClaveNueva();
-//        ventana.setVisible(true);
-//        this.setVisible(false);        
     }//GEN-LAST:event_OlvidoCActionPerformed
 
     private void InicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioSesionActionPerformed
@@ -216,6 +214,8 @@ public class Inicio extends javax.swing.JFrame {
 
     
     public static void main(String args[]) {
+        
+        Coordinador.registrar("je", "j", "jerojas", "123", 123);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
