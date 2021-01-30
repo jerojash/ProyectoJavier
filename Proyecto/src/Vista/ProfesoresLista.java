@@ -43,11 +43,11 @@ public class ProfesoresLista extends javax.swing.JFrame {
 
         ListaProfesores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Pablo", "Monsalve", "7659002"},
-                {"Daniela", "Morales", "10890712"},
-                {"Sabrina", "Zerpa", "9851082"},
-                {"Profesor(a)4", "...", "..."},
-                {"Profesor(a)5", "...", "..."}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Nombre", "Apellido", "Cédula"

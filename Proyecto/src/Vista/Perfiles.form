@@ -115,51 +115,11 @@
             <Component class="javax.swing.JTable" name="EditarPerfiles">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="9">
-                    <Column editable="true" title="Rol" type="java.lang.Object">
-                      <Data value="Coordinador"/>
-                      <Data value="Coordinador"/>
-                      <Data value="Profesor"/>
-                      <Data value="Profesor"/>
-                      <Data value="Profesor"/>
-                      <Data value="Estudiante"/>
-                      <Data value="Estudiante"/>
-                      <Data value="Estudiante"/>
-                      <Data value="..."/>
-                    </Column>
-                    <Column editable="true" title="Nombre" type="java.lang.String">
-                      <Data value="Pedro"/>
-                      <Data value="Laura"/>
-                      <Data value="Pablo"/>
-                      <Data value="Daniela"/>
-                      <Data value="Sabrina"/>
-                      <Data value="Luis"/>
-                      <Data value="Juan"/>
-                      <Data value="Maria"/>
-                      <Data value="..."/>
-                    </Column>
-                    <Column editable="true" title="Apellido" type="java.lang.String">
-                      <Data value="Hernandez"/>
-                      <Data value="Bolivar"/>
-                      <Data value="Monsalve"/>
-                      <Data value="Morales"/>
-                      <Data value="Zerpa"/>
-                      <Data value="Aponte"/>
-                      <Data value="Rodriguez"/>
-                      <Data value="Perez"/>
-                      <Data value="..."/>
-                    </Column>
-                    <Column editable="true" title="Cedula" type="java.lang.String">
-                      <Data value="9874508"/>
-                      <Data value="17653907"/>
-                      <Data value="7659002"/>
-                      <Data value="10890712"/>
-                      <Data value="9851082"/>
-                      <Data value="26754099"/>
-                      <Data value="28976500"/>
-                      <Data value="29626121"/>
-                      <Data value="..."/>
-                    </Column>
+                  <Table columnCount="4" rowCount="8">
+                    <Column editable="true" title="Rol" type="java.lang.Object"/>
+                    <Column editable="true" title="Nombre" type="java.lang.String"/>
+                    <Column editable="true" title="Apellido" type="java.lang.String"/>
+                    <Column editable="true" title="Cedula" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

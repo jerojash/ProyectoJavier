@@ -42,15 +42,14 @@ public class Perfiles extends javax.swing.JFrame {
 
         EditarPerfiles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Coordinador", "Pedro", "Hernandez", "9874508"},
-                {"Coordinador", "Laura", "Bolivar", "17653907"},
-                {"Profesor", "Pablo", "Monsalve", "7659002"},
-                {"Profesor", "Daniela", "Morales", "10890712"},
-                {"Profesor", "Sabrina", "Zerpa", "9851082"},
-                {"Estudiante", "Luis", "Aponte", "26754099"},
-                {"Estudiante", "Juan", "Rodriguez", "28976500"},
-                {"Estudiante", "Maria", "Perez", "29626121"},
-                {"...", "...", "...", "..."}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Rol", "Nombre", "Apellido", "Cedula"

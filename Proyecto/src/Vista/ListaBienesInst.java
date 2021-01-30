@@ -41,10 +41,11 @@ public class ListaBienesInst extends javax.swing.JFrame {
 
         ListaInstrumentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Cuerdas", "Violin", "1", "24"},
-                {"Cuerdas", "Guitarra", "2", "13"},
-                {"Vientos", "Flauta", "3", "21"},
-                {"...", "...", "...", "..."}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Tipo", "Instrumento", "ID", "Cantidad disponible"

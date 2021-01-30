@@ -214,7 +214,6 @@ public class Inicio extends javax.swing.JFrame {
 
     
     public static void main(String args[]) {
-        
         Coordinador.registrar("je", "j", "jerojas", "123", 123);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

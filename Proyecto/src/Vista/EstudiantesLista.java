@@ -34,11 +34,12 @@ public class EstudiantesLista extends javax.swing.JFrame {
 
         ListaEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Juan", "Rodriguez", "28976500"},
-                {"Maria ", "Perez", "29626121"},
-                {"Luis", "Aponte", "26754099"},
-                {"Estudiante4", "...", "..."},
-                {"Estudiante5", "...", "..."}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Nombre", "Apellido", "Cédula"

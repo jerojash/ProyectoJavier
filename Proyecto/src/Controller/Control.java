@@ -7,12 +7,19 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import Model.Coordinador;
+import Model.Estudiante;
+import Model.Profesor;
 import Model.Usuario;
 import Vista.Inicio;
 import Vista.ClaveNueva;
 import Vista.MenuPrincipal;
+import Vista.Profesores;
+import Vista.ProfesoresRegistro;
 import Vista.Registro;
 import java.io.IOException;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Control {
     
@@ -46,6 +53,15 @@ public class Control {
         this.JPassword = JPassword;
         this.JVerificarC = JVerificarC;
     }
+    
+    //RegistroProfesores / RegistroEstudiante
+    public Control(JTextField usuario, JTextField apellido, JTextField cedula, JTextField nombre) {
+        this.usuario = usuario;
+        this.apellido = apellido;
+        this.cedula = cedula;
+        this.nombre = nombre;
+    }
+    
     
     
     public void ingresar(Inicio ini){
@@ -122,14 +138,14 @@ public class Control {
               return;
             }
 
-            if (Coordinador.buscarCedula(ced)!=null){
+            if (Coordinador.buscarUsuario(ced)!=null){
                 //Si la cedula ya esta registrada
                 JOptionPane.showMessageDialog(null, "La cedula que ha ingresado ya se encuentra registrado. Intentelo nuevamente.");   
                 return;
             }
             //Si las claves coinciden, y todas las validaciones son correctas, se puede registrar
 
-            Coordinador.registrar(nombre.getText(), apellido.getText(), usuario.getText(), password, ced);    
+            Coordinador.registrar(nombre.getText(), apellido.getText(), usuario.getText().toLowerCase().replace(" ", ""), password, ced);    
 
             //Y salimos de la vista
             Inicio ventana = new Inicio();
@@ -137,7 +153,57 @@ public class Control {
             ini.setVisible(false);
 
         } else JOptionPane.showMessageDialog(null, "Las claves deben coincider. Intente de nuevo");
-        //Las claves no coinciden
-           
+            //Las claves no coinciden
+            JOptionPane.showMessageDialog(null, "El usuario "+usuario.getText()+" ya se encuentra registrado. Intente con otro usuario.");
+            
     }
+    
+    public boolean registrar(int opcion){ //opcion = 1 si es profesor y 2 si es estudiante 
+        int ced=3;
+        //No ha llenado todos los campos
+        if(usuario.getText().isEmpty()||nombre.getText().isEmpty()||apellido.getText().isEmpty()||cedula.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Rellene todos los campos solicitados"); 
+            
+        }else if(Coordinador.buscarCoordinador(usuario.getText().replace(" ", "").toLowerCase())!=null){
+            //Si ya existe ese usuario en la base de dato
+            JOptionPane.showMessageDialog(null, "El usuario "+usuario.getText()+" ya se encuentra registrado. Intente con otro usuario.");
+        } else{ 
+            try{ //Capturo la excepcion
+                ced = Integer.parseInt(cedula.getText().replace(" ", ""));
+
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(ced<=0){ //Si la cedula es igual a cero o negativa
+              JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }else if (Coordinador.buscarUsuario(ced)!=null){
+                //Si la cedula ya esta registrada
+                JOptionPane.showMessageDialog(null, "La cedula que ha ingresado ya se encuentra registrado. Intentelo nuevamente.");   
+            }else if(opcion ==1){
+                Profesor prof = new Profesor(ced,nombre.getText(),apellido.getText());
+                prof.registrar();
+                return true;
+            }else{
+                Estudiante est = new Estudiante(ced,nombre.getText(),apellido.getText());
+                est.registrar();
+                return true;
+            }
+    }
+        return false;
+    }
+    public void llenarTabla(Usuario regPer, JTable tablaPersonas,ArrayList<Usuario> lista ){  
+      
+      String[] columna = { "Cédula", "Nombre y Apellido", "Email" };
+      DefaultTableModel dtm = new DefaultTableModel(null,columna);
+      lista= regPer.getPersonas();
+      for (Persona per : lista)
+          {
+            String[] row = {Integer.toString(per.getCedula()), per.getNombres(),per.getEmail() };
+            dtm.addRow(row);
+          }
+      tablaPersonas.setModel(dtm);
+
+   }
+    
 }

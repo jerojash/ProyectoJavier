@@ -10,15 +10,17 @@ import java.util.ArrayList;
 
 public class Coordinador extends Usuario{
     //Atributo
-        protected String password;
+        protected String password, usuario;
+        protected static ArrayList<Coordinador> list= new ArrayList<Coordinador>();
 
     //Metodos
         
         //Constructores
 
         public Coordinador(String password, int cedula, String nombre, String apellido, String usuario) {
-            super(cedula, nombre, apellido, usuario);
+            super(cedula, nombre, apellido);
             this.password = password;
+            this.usuario = usuario;
         }
 
             
@@ -90,14 +92,7 @@ public class Coordinador extends Usuario{
             
         }
         
-        public static Usuario buscarUsuario(String usuario){ //Buscar un usuario
-            for (Usuario iterador : Usuario.lista){
-                if(iterador.usuario.equals(usuario)) return iterador;
-            }
-            return null;
-        }
-        
-        public static Usuario buscarCedula(int cedula){ //Buscar un usuario por su numero de cedula
+        public static Usuario buscarUsuario(int cedula){ //Buscar un usuario por su numero de cedula
             for (Usuario iterador : Usuario.lista){
                 if(iterador.cedula==cedula) return iterador;
             }
@@ -106,8 +101,8 @@ public class Coordinador extends Usuario{
         
         public static Coordinador buscarCoordinador(String usuario){
             
-            for (Usuario iterador : Usuario.lista){
-                if(iterador.usuario.equals(usuario)) return (Coordinador)iterador;
+            for (Coordinador iterador : Coordinador.list){
+                if(iterador.usuario.equals(usuario)) return iterador;
             }
             return null;
         }
@@ -124,11 +119,14 @@ public class Coordinador extends Usuario{
         }
         
     @Override //Sobre carga del metodo registrar
-        public void registrar(String nombre, String apellido, String usuario, int cedula ){}
+        public void registrar(){
+            lista.add(this);
+            list.add(this);
+        }
         
         public static void registrar(String nombre, String apellido, String usuario, String password, int cedula){
             Coordinador cord = new Coordinador(password, cedula, nombre, apellido, usuario); //Creo instancia
-            Usuario.lista.add(cord); //Agrego a la lista el nuevo usuario
+            cord.registrar(); //Agrego a la lista el nuevo usuario
         }
         
         public void editarPerfil(String nombre, String apellido, String usuario, int cedula, String password){

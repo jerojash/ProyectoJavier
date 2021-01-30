@@ -43,10 +43,11 @@ public class ListaBienesVehi extends javax.swing.JFrame {
 
         ListaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Mercedes Benz", "Sprinter", "2007", "A56UH8", null},
-                {"Vehiculo2", "...", "...", "...",  new Boolean(true)},
-                {"Vehiculo3", "...", "...", "...",  new Boolean(true)},
-                {"Vehiculo4", "...", "...", "...", null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
                 "Marca", "Modelo", "Año", "Placa", "Disponible"

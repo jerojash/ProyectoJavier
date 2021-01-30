@@ -6,19 +6,20 @@ Javier Rojas
 
 package Model;
 
+import java.util.ArrayList;
+
 public class Profesor extends Usuario{
     
-    //Metodos
+     protected static ArrayList<Profesor> list= new ArrayList<Profesor>();
         
         //Constructores
-            
-        
     
-        public Profesor(int cedula, String nombre, String apellido, String usuario){
-        super(cedula, nombre, apellido, usuario);
-            
+        public Profesor(int cedula, String nombre, String apellido){
+        super(cedula, nombre, apellido);
         }
 
+     //Metodos
+        
     public void mostrarPerfil() {
     }
         
@@ -30,8 +31,8 @@ public class Profesor extends Usuario{
             
         };
         
-        public void registrar(String nombre, String apellido, String usuario, int cedula){
-            Profesor nuevoProfesor = new Profesor(cedula, nombre, apellido, usuario);
-            lista.add(nuevoProfesor);
+        public void registrar(){
+            lista.add(this);
+            list.add(this);
         }
 }
