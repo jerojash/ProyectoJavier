@@ -32,6 +32,7 @@ public class Control {
     JTextField usuario, apellido, cedula, nombre;
     JPasswordField JPassword, JVerificarC;
     JLabel usuarioLabel;
+    JTable tabla;
     
     //Inicio
     public Control(JTextField usuario, JPasswordField password) { 
@@ -63,8 +64,10 @@ public class Control {
         this.cedula = cedula;
         this.nombre = nombre;
     }
-    
-    
+
+    public Control(JTable tabla) {
+        this.tabla = tabla;
+    }
     
     public void ingresar(Inicio ini){
         String password = new String(JPassword.getPassword()); //Decifro la clave y la convierto en string
@@ -197,17 +200,16 @@ public class Control {
         return false;
     }
     
-    public void llenarTabla(Usuario regPer, JTable tablaPersonas,ArrayList<Usuario> lista ){  
-//      
-//      String[] columna = { "Cédula", "Nombre y Apellido", "Email" };
-//      DefaultTableModel dtm = new DefaultTableModel(null,columna);
-//      lista= regPer.getPersonas();
-//      for (Persona per : lista)
-//          {
-//            String[] row = {Integer.toString(per.getCedula()), per.getNombres(),per.getEmail() };
-//            dtm.addRow(row);
-//          }
-//      tablaPersonas.setModel(dtm);
+    public void llenarTabla(JTable tablaPersonas ){  
+      tabla = tablaPersonas;
+      String[] columna = { "Cédula", "Nombre", "Apellido" };
+      DefaultTableModel dtm = new DefaultTableModel(null,columna);
+      for (Profesor per : Profesor.getList())
+          {
+            String[] row = {Integer.toString(per.getCedula()), per.getNombre(),per.getApellido() };
+            dtm.addRow(row);
+          }
+      tabla.setModel(dtm);
     }
     
     public void activaVentana(JFrame ventana,JFrame ventana2) {

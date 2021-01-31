@@ -35,4 +35,21 @@ public class Profesor extends Usuario{
             lista.add(this);
             list.add(this);
         }
+
+    public static ArrayList<Profesor> getList() {
+        return list;
+    }
+
+    public int getCedula() {
+        return cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+        
 }
