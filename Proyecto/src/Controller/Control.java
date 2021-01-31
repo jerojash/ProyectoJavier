@@ -48,7 +48,7 @@ public class Control {
         this.usuarioLabel.setText(userStatic);
     }
         
-    //Registro
+    //RegistroCoordinador
     public Control(JTextField usuario, JTextField apellido, JTextField cedula, JTextField nombre, JPasswordField JPassword, JPasswordField JVerificarC) {
         this.usuario = usuario;
         this.apellido = apellido;
@@ -200,16 +200,43 @@ public class Control {
         return false;
     }
     
-    public void llenarTabla(JTable tablaPersonas ){  
-      tabla = tablaPersonas;
+    public void llenarTablaP(JTable tablaPersonas ){  
       String[] columna = { "Cédula", "Nombre", "Apellido" };
+      
       DefaultTableModel dtm = new DefaultTableModel(null,columna);
       for (Profesor per : Profesor.getList())
           {
-            String[] row = {Integer.toString(per.getCedula()), per.getNombre(),per.getApellido() };
+            String[] row = {Integer.toString(per.getCedula()), per.getNombre(),per.getApellido()};
             dtm.addRow(row);
           }
-      tabla.setModel(dtm);
+
+        tablaPersonas.setModel(dtm);
+    }
+    
+    public void llenarTablaE(JTable tablaPersonas ){  
+      String[] columna = { "Cédula", "Nombre", "Apellido" };
+      
+      DefaultTableModel dtm = new DefaultTableModel(null,columna);
+      for (Estudiante per : Estudiante.getList())
+          {
+            String[] row = {Integer.toString(per.getCedula()), per.getNombre(),per.getApellido()};
+            dtm.addRow(row);
+          }
+
+        tablaPersonas.setModel(dtm);
+    }
+    
+    public void llenarTablaC(JTable tablaPersonas ){  
+      String[] columna = { "Cédula", "Usuario","Nombre", "Apellido"};
+      
+      DefaultTableModel dtm = new DefaultTableModel(null,columna);
+      for (Coordinador per : Coordinador.getList())
+          {
+            String[] row = {Integer.toString(per.getCedula()), per.getUsuario(),per.getNombre(),per.getApellido()};
+            dtm.addRow(row);
+          }
+
+        tablaPersonas.setModel(dtm);
     }
     
     public void activaVentana(JFrame ventana,JFrame ventana2) {
@@ -230,7 +257,7 @@ public class Control {
     }
     
     public void desactivar(){
-        if(Control.getOp() != 1){ 
+        if(Control.getOp() != 1){
             usuario.setEnabled(false);
             cedula.setText(coordinador.getCedula()+"");
             usuario.setText(coordinador.getUsuario());

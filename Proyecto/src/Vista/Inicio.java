@@ -195,8 +195,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_InicioSesionActionPerformed
 
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
-        Registro ventana = new Registro();
         Control.setOp(1);
+        Registro ventana = new Registro();
         ventana.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_RegistrarseActionPerformed

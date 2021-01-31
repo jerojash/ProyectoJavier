@@ -188,6 +188,10 @@ public class Coordinador extends Usuario{
     public static ArrayList<Usuario> getLista() {
         return lista;
     }
+
+    public static ArrayList<Coordinador> getList() {
+        return list;
+    }
     
     
     
