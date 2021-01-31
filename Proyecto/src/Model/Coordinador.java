@@ -28,7 +28,7 @@ public class Coordinador extends Usuario{
         public void prestamo(int dd, int mm, int yy, Usuario persona, Vehiculo vehiculo){ //Para prestar vehiculo
             vehiculo.setDisponible(false);
             
-            Registro reg = new Registro(vehiculo, persona, dd, mm, yy);
+            Registro reg = new Registro(vehiculo, dd, mm, yy,persona);
             
             Registro.addLista(reg);
             
@@ -49,14 +49,71 @@ public class Coordinador extends Usuario{
             return null;
         }
         
-        public void recibir(int ID){ //Recibir un bien
-            Bien bien = buscar(ID);
-            bien.setDisponible(true);
-            
+        public Registro buscarInstrumentoNoDisponible(int ID){ //Metodo para buscar si la persona debe un
+                                                                                                      //instrumento
             for(Registro iterador: Registro.lista){
-                if(iterador.bien.ID == ID) Registro.lista.remove(iterador);
                 
+                if(iterador.getInstrumento().ID == ID && iterador.getInstrumento().isDisponible()==false){                             //Busca el registro y le coloca la fecha
+
+                    return iterador; //Si lo debe, devuelve el registro
+                }
             }
+            return null; //Sino null
+        }
+        
+        public Registro buscarVehiculoNoDisponible(int ID){ //Metodo para buscar si la persona debe un
+                                                                                                      //instrumento
+            for(Registro iterador: Registro.lista){
+                
+                if(iterador.getVehiculo().ID == ID && iterador.getVehiculo().isDisponible()==false){                             //Busca el registro y le coloca la fecha
+
+                    return iterador; //Si lo debe, devuelve el registro
+                }
+            }
+            return null; //Sino null
+        }
+        
+        public boolean recibirInstrumento(int ID, int cedula, int dv, int mv, int yv){ //Recibir un bien, 
+            
+                Registro iterador = buscarInstrumentoNoDisponible(ID);
+                
+                if(iterador!=null){                             //Busca el registro y le coloca la fecha
+                    iterador.setDv(dv);                   //de devolucion
+                    iterador.setMv(mv);
+                    iterador.setYv(yv);
+                    iterador.getInstrumento().setDisponible(true);
+                    return true;
+                }
+            
+            return false;
+        }
+        
+        public boolean recibirVehiculo(int ID, int dv, int mv, int yv){ //Recibir un bien, 
+            
+            Registro iterador = buscarVehiculoNoDisponible(ID);
+
+            if(iterador!=null){                             
+            //Busca el registro donde la persona no haya devuelto el vehiculo
+
+                iterador.setDv(dv);                                                        
+                iterador.setMv(mv);
+                iterador.setYv(yv);
+                iterador.getVehiculo().setDisponible(true);
+
+                return true; //Si recibio el bien
+            }
+            
+            return false; //Si no lo recibio
+        }
+        
+        public boolean validarPrestamoInstrumento(int cedula){
+            for(Registro iterador: Registro.lista){
+                
+                if(iterador.getPersona().cedula== cedula && iterador.getInstrumento().isDisponible()==false){                             //Busca el registro y le coloca la fecha
+                    return false;
+                }
+            }
+            return true; //Sino true
         }
         
         public void agregar(int ID, int yy, String placa, String marca, String modelo){ //agregar un vehiculo
@@ -64,6 +121,7 @@ public class Coordinador extends Usuario{
             Vehiculo vehi = new Vehiculo(placa,marca,modelo,yy,ID);
             
             Bien.lista.add(vehi);
+            Vehiculo.addList(vehi);
             
         }
         
@@ -72,6 +130,7 @@ public class Coordinador extends Usuario{
             Instrumento ins = new Instrumento(tipo, ID);
             
             Bien.lista.add(ins);
+            Instrumento.addList(ins);
             
         }
         
@@ -136,11 +195,10 @@ public class Coordinador extends Usuario{
             this.cedula = cedula;
             this.password = password;
         }
-        
-        public void mostrarPerfil(){
-            
-        };
 
+        public void buscarRegistro(int ID){
+            
+        }
     public void setPassword(String password) {
         this.password = password;
     }

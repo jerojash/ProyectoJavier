@@ -265,6 +265,21 @@ public class Control {
         tablaPersonas.setModel(dtm);
     }
     
+    public void llenarTablaI(JTable tabla){
+        String[] columna = { "ID", "Tipo","Disponible"};
+      String dispon;
+      DefaultTableModel dtm = new DefaultTableModel(null,columna);
+      for (Instrumento per : Instrumento.getList())
+          {
+            if(per.isDisponible()) dispon = "SI";
+            else dispon = "NO";
+            String[] row = {Integer.toString(per.getID()), per.getTipo(),dispon};
+
+            dtm.addRow(row);
+          }
+        tabla.setModel(dtm);
+    }
+    
     public void activaVentana(JFrame ventana,JFrame ventana2) {
         
         ventana.setLocationRelativeTo(null);
@@ -344,7 +359,10 @@ public class Control {
             
             else if(coordinador.buscar(idInteger)==null){ JOptionPane.showMessageDialog(null, "El instrumento que acaba de ingresar no se encuentra");
             }
-            else{
+            else if(coordinador.validarPrestamoInstrumento(ced)==false) JOptionPane.showMessageDialog(null, "Este usuario debe un bien", "REPORTE DE HOLD", JOptionPane.ERROR_MESSAGE);
+            else if(coordinador.buscarInstrumentoNoDisponible(idInteger)!=null){ JOptionPane.showMessageDialog(null, "El bien no se encuentra disponible en estos momentos");
+            
+            }else{
                     coordinador.prestamo(Integer.parseInt(dd.getSelectedItem().toString()), 
                                                                                             Integer.parseInt(mm.getSelectedItem().toString()), 
                                                                                             Integer.parseInt(yy.getSelectedItem().toString()), 
@@ -355,5 +373,31 @@ public class Control {
                     }
             }
         }
+        
+        public void instrumentoDevolucion(){
+            int ced=3;
+        //No ha llenado todos los campos
+        if(cedula.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese una cedula"); 
+        }else{ 
+            try{ //Capturo la excepcion
+                ced = Integer.parseInt(cedula.getText().replace(" ", ""));
+
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(ced<=0){ //Si la cedula es igual a cero o negativa
+              JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            
+            }else if(Coordinador.buscarUsuario(ced)==null) 
+                JOptionPane.showMessageDialog(null, "La cedula no se encuentra registrada en el sistema");
+            else{ //Todo esta correcto y podemos realizar la devolucion
+                coordinador.recibirVehiculo(ced, op, op, op);
+                
+            }
+        }
+        }
+        
         
 }

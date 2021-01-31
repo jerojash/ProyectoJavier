@@ -1,11 +1,15 @@
 package Vista;
 
+import Controller.Control;
 import javax.swing.JOptionPane;
 
 public class ListaBienesInst extends javax.swing.JFrame {
-
+    Control control;
     public ListaBienesInst() {
         initComponents();
+        control = new Control(ListaInstrumentos);
+        
+        control.llenarTablaI(ListaInstrumentos);
         this.setLocationRelativeTo(null);
     }
 

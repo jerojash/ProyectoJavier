@@ -30,5 +30,30 @@ public class Instrumento extends Bien {
             this.disponible = disponible;
         }
 
-              
+    public static ArrayList<Instrumento> getList() {
+        return list;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+
+    public static void setList(ArrayList<Instrumento> list) {
+        Instrumento.list = list;
+    }
+    
+    public static void addList(Instrumento ins){
+        list.add(ins);
+    }
+
+       
 }
