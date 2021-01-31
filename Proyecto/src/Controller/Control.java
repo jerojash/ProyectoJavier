@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import Model.Vehiculo;
 
 public class Control {
     
@@ -32,7 +33,7 @@ public class Control {
     private static Coordinador coordinador;
     private static int op;
     
-    JTextField usuario, apellido, cedula, nombre,ID,tipo;
+    JTextField usuario, apellido, cedula, nombre,ID,tipo, marca, modelo, yyString, placa;
     JPasswordField JPassword, JVerificarC;
     JLabel usuarioLabel;
     JTable tabla;
@@ -95,7 +96,18 @@ public class Control {
         this.estudiante = estudiante;
     }
     
-    //Devolucion instrumento
+    //Registrar prestamo de un vehiculo
+
+    public Control(JTextField cedula, JTextField ID, JComboBox dd, JComboBox mm, JComboBox yy) {
+        this.cedula = cedula;
+        this.ID = ID;
+        this.dd = dd;
+        this.mm = mm;
+        this.yy = yy;
+    }
+    
+    
+    //Devolucion instrumento y vehiculo
 
     public Control(JTextField cedula, JComboBox dd, JComboBox mm, JComboBox yy) {
         this.cedula = cedula;
@@ -103,6 +115,18 @@ public class Control {
         this.mm = mm;
         this.yy = yy;
     }
+    
+    //Registrar un vehiculo
+    
+    public Control(JTextField ID, JTextField marca, JTextField modelo, JTextField yyString, JTextField placa) {
+        this.ID = ID;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.yyString = yyString;
+        this.placa = placa;
+    }
+    
+    
     
     
     
@@ -291,6 +315,21 @@ public class Control {
         tabla.setModel(dtm);
     }
     
+    public void llenarTablaV(JTable tabla){
+        String[] columna = { "ID","Marca", "Modelo","Placa","A\u00f1o","Disponible"};
+        String dispon;
+        DefaultTableModel dtm = new DefaultTableModel(null,columna);
+        for (Vehiculo per : Vehiculo.getList())
+            {
+              if(per.isDisponible()) dispon = "SI";
+              else dispon = "NO";
+              String[] row = {Integer.toString(per.getID()), per.getMarca(), per.getModelo(), per.getPlaca(), Integer.toString(per.getAnnio()),dispon};
+
+              dtm.addRow(row);
+            }
+          tabla.setModel(dtm);
+    }
+    
     public void activaVentana(JFrame ventana,JFrame ventana2) {
         
         ventana.setLocationRelativeTo(null);
@@ -376,7 +415,7 @@ public class Control {
             
             if(Coordinador.buscarUsuario(ced)==null) JOptionPane.showMessageDialog(null, "La cedula no se encuentra registrada en el sistema");
             
-            else if(coordinador.buscar(idInteger)==null){ JOptionPane.showMessageDialog(null, "El instrumento que acaba de ingresar no se encuentra");
+            else if(coordinador.buscarInstrumento(idInteger)==null){ JOptionPane.showMessageDialog(null, "El instrumento que acaba de ingresar no se encuentra");
             }
             else if(coordinador.validarPrestamoInstrumento(ced)==false) JOptionPane.showMessageDialog(null, "Este usuario debe un bien", "REPORTE DE HOLD", JOptionPane.ERROR_MESSAGE);
             else if(coordinador.buscarInstrumentoNoDisponible(idInteger)!=null){ JOptionPane.showMessageDialog(null, "El bien no se encuentra disponible en estos momentos");
@@ -428,8 +467,123 @@ public class Control {
                 JOptionPane.showMessageDialog(null, "Este usuario no debe ningun instrumento");
             }
         }
-        
         }
         
+        public void registrarVehiculo(JFrame ventana1, JFrame ventana2){
+            if (ID.getText().isEmpty()||marca.getText().isEmpty()||modelo.getText().isEmpty()||yyString.getText().isEmpty()||placa.getText().isEmpty())
+                JOptionPane.showMessageDialog(null, "Complete todos los campos solicitados");
+            else{
+                int yy, id;
+                try{ //Capturo la excepcion
+                    
+                 yy=Integer.parseInt(yyString.getText().replaceAll(" ",""));
+                
+                 
+                }catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "Ha ingresado un a\u00f1o invalido. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                try{ //Capturo la excepcion
+                    
+                 
+                 id = Integer.parseInt(ID.getText().replaceAll(" ",""));
+                 
+                }catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "Ha ingresado un ID invalido. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                while(yy<=0||id<=0){
+                    JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if(coordinador.buscar(id)!=null)JOptionPane.showMessageDialog(null, "Ya existe un bien con este ID");
+                else{
+                    coordinador.agregar(id, yy,placa.getText().replaceAll(" ","").toLowerCase(), 
+                                                                marca.getText().replaceAll(" ","").toLowerCase(), 
+                                                                modelo.getText().replaceAll(" ","").toLowerCase());
+                JOptionPane.showMessageDialog(null, "El vehiculo se ha registrado exitosamente.");
+                activaVentana(ventana1,ventana2);
+                }
+            }
+        }
+        
+        public void prestamoVehiculo(JFrame ventana1, JFrame ventana2){
+        if(ID.getText().isEmpty()||cedula.getText().isEmpty())JOptionPane.showMessageDialog(null, "Rellene todos los campos solicitados");
+        else {
+            int idInteger, ced;
+            try{ //Capturo la excepcion
+                idInteger = Integer.parseInt(ID.getText().replace(" ", ""));
+                
+
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado un ID invalido. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            try{ //Capturo la excepcion
+               
+                ced = Integer.parseInt(cedula.getText().replace(" ", ""));
+
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            if(idInteger<=0||ced<=0){ //Si la cedula y el id es igual a cero o negativa
+              JOptionPane.showMessageDialog(null, "Ha ingresado una valor negativo. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
+            
+            //Verifico si la cedula esta en el sistema como un usuario
+            if(coordinador.buscarProfesor(ced)==null) JOptionPane.showMessageDialog(null, "La cedula no se encuentra registrada como un profeso en el sistemar");
+            
+            else if(coordinador.buscarVehiculo(idInteger)==null){ JOptionPane.showMessageDialog(null, "El ID no esta registrando para un vehiculo");
+            }
+            else if(coordinador.validarPrestamoVehiculo(ced)==false) JOptionPane.showMessageDialog(null, "Este usuario debe un bien", "REPORTE DE HOLD", JOptionPane.ERROR_MESSAGE);
+            else if(coordinador.buscarVehiculoNoDisponible(idInteger)!=null){ JOptionPane.showMessageDialog(null, "El bien no se encuentra disponible en estos momentos");
+            
+            //Verifico si la cedula pertenece a un profesor
+            } else{
+                    coordinador.prestamo(Coordinador.buscarProfesor(ced),
+                                                                                        Integer.parseInt(dd.getSelectedItem().toString()), 
+                                                                                        Integer.parseInt(mm.getSelectedItem().toString()), 
+                                                                                        Integer.parseInt(yy.getSelectedItem().toString()),  
+                                                                                        (Vehiculo)coordinador.buscar(idInteger));
+                    JOptionPane.showMessageDialog(null, "El prestamo se ha realizado con exito");
+                    activaVentana(ventana1, ventana2);
+                    }
+            }
+        }
+        
+        public void vehiculoDevolucion(JFrame ventana, JFrame ventana2){
+            int ced=3;
+            //No ha llenado todos los campos
+            if(cedula.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Ingrese una cedula"); 
+            }else{ 
+                try{ //Capturo la excepcion
+                    ced = Integer.parseInt(cedula.getText().replace(" ", ""));
+
+                }catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if(ced<=0){ //Si la cedula es igual a cero o negativa
+                  JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+                }else if(Coordinador.buscarProfesor(ced)==null) 
+                    JOptionPane.showMessageDialog(null, "La cedula no se encuentra registrada en el sistema");
+                else if(coordinador.recibirVehiculo(ced,Integer.parseInt(dd.getSelectedItem().toString()), 
+                                                                                                Integer.parseInt(mm.getSelectedItem().toString()), 
+                                                                                                Integer.parseInt(yy.getSelectedItem().toString()))){ 
+                            //La devolucion se realizo con exit
+                            JOptionPane.showMessageDialog(null, "La devolucion se realizo con exito");
+                            activaVentana(ventana, ventana2);
+
+                }else {
+                    JOptionPane.showMessageDialog(null, "Este usuario no debe ningun vehiculo");
+                }
+            }
+        }
         
 }

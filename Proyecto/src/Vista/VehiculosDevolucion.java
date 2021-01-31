@@ -1,12 +1,16 @@
 package Vista;
 
+import Controller.Control;
 import javax.swing.JOptionPane;
 
 public class VehiculosDevolucion extends javax.swing.JFrame {
 
+    Control control;
+    
     public VehiculosDevolucion() {
         initComponents();
         this.setLocationRelativeTo(null);
+        control = new Control(Cedula, Dia, Mes, Annio);
         comboDia();
         comboMes();
         comboAnnio();
@@ -39,7 +43,7 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        Profesor = new javax.swing.JTextField();
+        Cedula = new javax.swing.JTextField();
         Guardar = new javax.swing.JButton();
         Volver = new javax.swing.JButton();
         Dia = new javax.swing.JComboBox<>();
@@ -65,11 +69,11 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
 
         jLabel3.setText("Dia:");
 
-        jLabel6.setText("Profesor(a) que regresa el vehiculo:");
+        jLabel6.setText("Cedula del profesor");
 
-        Profesor.addActionListener(new java.awt.event.ActionListener() {
+        Cedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProfesorActionPerformed(evt);
+                CedulaActionPerformed(evt);
             }
         });
 
@@ -112,10 +116,6 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Profesor, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -129,6 +129,12 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Annio, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(47, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(Cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -157,7 +163,7 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(Profesor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(Guardar)
                 .addGap(2, 2, 2)
@@ -172,7 +178,7 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
         jPanel5.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mini.png"))); // NOI18N
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
@@ -180,7 +186,7 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
         });
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Salir.png"))); // NOI18N
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel9MouseClicked(evt);
@@ -237,13 +243,13 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         // guardar datos y mostrar mensaje guardados
         Vehiculos ventana = new Vehiculos();
-        ventana.setVisible(true);
-        this.setVisible(false);
+        control.vehiculoDevolucion(ventana, this);
+        
     }//GEN-LAST:event_GuardarActionPerformed
 
-    private void ProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfesorActionPerformed
+    private void CedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CedulaActionPerformed
         // registrar nombre del profesor
-    }//GEN-LAST:event_ProfesorActionPerformed
+    }//GEN-LAST:event_CedulaActionPerformed
 
     private void DiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiaActionPerformed
         // TODO add your handling code here:
@@ -283,10 +289,10 @@ public class VehiculosDevolucion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Annio;
+    public javax.swing.JTextField Cedula;
     private javax.swing.JComboBox<String> Dia;
     public javax.swing.JButton Guardar;
     private javax.swing.JComboBox<String> Mes;
-    public javax.swing.JTextField Profesor;
     public javax.swing.JButton Volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
