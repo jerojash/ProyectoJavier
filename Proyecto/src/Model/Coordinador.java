@@ -169,6 +169,22 @@ public class Coordinador extends Usuario{
             return null;
         }
         
+        public static Profesor buscarProfesor(int cedula){
+            
+            for (Profesor iterador : Profesor.list){
+                if(iterador.getCedula()==cedula) return iterador;
+            }
+            return null;
+        }
+        
+        public static Estudiante buscarEstudiante(int cedula){
+            
+            for (Estudiante iterador : Estudiante.list){
+                if(iterador.getCedula()==cedula) return iterador;
+            }
+            return null;
+        }
+        
         public static int acceder(String usuario, String password){ //Retorna 0 si se puede acceder, 1 si la contra es incorrecta, 2 si no encontro el usuario
             
             Coordinador user = buscarCoordinador(usuario);

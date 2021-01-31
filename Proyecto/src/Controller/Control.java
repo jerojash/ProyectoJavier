@@ -332,6 +332,9 @@ public class Control {
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Ha ingresado un ID invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
+            }if(idInteger<=0){ //Si la cedula es igual a cero o negativa
+              JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+              return;
             }
             
             if (coordinador.buscar(idInteger)!=null){//Si ya existe un bien con ese ID
@@ -366,6 +369,11 @@ public class Control {
                 return;
             }
             
+            if(idInteger<=0||ced<=0){ //Si la cedula y el id es igual a cero o negativa
+              JOptionPane.showMessageDialog(null, "Ha ingresado una cedula invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
+            
             if(Coordinador.buscarUsuario(ced)==null) JOptionPane.showMessageDialog(null, "La cedula no se encuentra registrada en el sistema");
             
             else if(coordinador.buscar(idInteger)==null){ JOptionPane.showMessageDialog(null, "El instrumento que acaba de ingresar no se encuentra");
@@ -373,7 +381,13 @@ public class Control {
             else if(coordinador.validarPrestamoInstrumento(ced)==false) JOptionPane.showMessageDialog(null, "Este usuario debe un bien", "REPORTE DE HOLD", JOptionPane.ERROR_MESSAGE);
             else if(coordinador.buscarInstrumentoNoDisponible(idInteger)!=null){ JOptionPane.showMessageDialog(null, "El bien no se encuentra disponible en estos momentos");
             
-            }else{
+            }else if(profesor.isSelected() && coordinador.buscarProfesor(ced)==null){
+                JOptionPane.showMessageDialog(null, "Este usuario no esta registrado como un profesor");
+                return;
+            }else if(estudiante.isSelected() && coordinador.buscarEstudiante(ced)==null){
+                JOptionPane.showMessageDialog(null, "Este usuario no esta registrado como un estudiante");
+                return;
+            } else{
                     coordinador.prestamo(Integer.parseInt(dd.getSelectedItem().toString()), 
                                                                                             Integer.parseInt(mm.getSelectedItem().toString()), 
                                                                                             Integer.parseInt(yy.getSelectedItem().toString()), 
