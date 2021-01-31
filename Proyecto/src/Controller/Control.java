@@ -95,6 +95,17 @@ public class Control {
         this.estudiante = estudiante;
     }
     
+    //Devolucion instrumento
+
+    public Control(JTextField cedula, JComboBox dd, JComboBox mm, JComboBox yy) {
+        this.cedula = cedula;
+        this.dd = dd;
+        this.mm = mm;
+        this.yy = yy;
+    }
+    
+    
+    
     public void ingresar(Inicio ini){
         String password = new String(JPassword.getPassword()); //Decifro la clave y la convierto en string
         
@@ -374,7 +385,7 @@ public class Control {
             }
         }
         
-        public void instrumentoDevolucion(){
+        public void instrumentoDevolucion(JFrame ventana, JFrame ventana2){
             int ced=3;
         //No ha llenado todos los campos
         if(cedula.getText().isEmpty()){
@@ -392,11 +403,18 @@ public class Control {
             
             }else if(Coordinador.buscarUsuario(ced)==null) 
                 JOptionPane.showMessageDialog(null, "La cedula no se encuentra registrada en el sistema");
-            else{ //Todo esta correcto y podemos realizar la devolucion
-                coordinador.recibirVehiculo(ced, op, op, op);
+            else if(coordinador.recibirInstrumento(ced,Integer.parseInt(dd.getSelectedItem().toString()), 
+                                                                                            Integer.parseInt(mm.getSelectedItem().toString()), 
+                                                                                            Integer.parseInt(yy.getSelectedItem().toString()))){ 
+                        //La devolucion se realizo con exit
+                        JOptionPane.showMessageDialog(null, "La devolucion se realizo con exito");
+                        activaVentana(ventana, ventana2);
                 
+            }else {
+                JOptionPane.showMessageDialog(null, "Este usuario no debe ningun instrumento");
             }
         }
+        
         }
         
         

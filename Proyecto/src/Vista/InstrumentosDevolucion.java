@@ -1,15 +1,19 @@
 package Vista;
 
+import Controller.Control;
 import javax.swing.JOptionPane;
 
 public class InstrumentosDevolucion extends javax.swing.JFrame {
-
+    
+    Control control;
     public InstrumentosDevolucion() {
         initComponents();
         this.setLocationRelativeTo(null);
         comboDia();
         comboMes();
         comboAnnio();
+        
+        control = new Control(Cedula, Dia, Mes, Annio);
     }
 
     private void comboDia(){
@@ -230,8 +234,8 @@ public class InstrumentosDevolucion extends javax.swing.JFrame {
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         // guardadr datos y mostrar mensaje gardados
         Instrumentos ventana = new Instrumentos();
-        ventana.setVisible(true);
-        this.setVisible(false);
+        control.instrumentoDevolucion(ventana, this);
+        
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed

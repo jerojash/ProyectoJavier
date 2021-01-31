@@ -73,20 +73,23 @@ public class Coordinador extends Usuario{
             return null; //Sino null
         }
         
-        public boolean recibirInstrumento(int ID, int cedula, int dv, int mv, int yv){ //Recibir un bien, 
+        public boolean recibirInstrumento(int cedula, int dv, int mv, int yv){ //Recibir un bien, 
             
-                Registro iterador = buscarInstrumentoNoDisponible(ID);
+                for(Registro iterador: Registro.lista){
                 
-                if(iterador!=null){                             //Busca el registro y le coloca la fecha
+                if(iterador.getPersona().cedula == cedula && iterador.getInstrumento().isDisponible()==false){                             //Busca el registro y le coloca la fecha
+                          //Busca el registro y le coloca la fecha
                     iterador.setDv(dv);                   //de devolucion
                     iterador.setMv(mv);
                     iterador.setYv(yv);
                     iterador.getInstrumento().setDisponible(true);
+                    
                     return true;
+
                 }
-            
-            return false;
         }
+        return false;    
+    }
         
         public boolean recibirVehiculo(int ID, int dv, int mv, int yv){ //Recibir un bien, 
             
