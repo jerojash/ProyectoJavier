@@ -16,9 +16,7 @@ public class Bien {
         this.ID = ID;
         this.disponible = true;
     }
-        
-        
-        
+
         public static void imprimirLista(){
             Iterator<Bien> iteradorBienes = lista.iterator();
             while(iteradorBienes.hasNext()){
@@ -37,21 +35,19 @@ public class Bien {
                    //Codigo de imprimir, los bienes disponibles
                }
             }
-            
         }
         
-        
-       public static Bien buscarBien(int ID){
-            //Busca un bien y retorna un bien
-            Iterator<Bien> iteradorBienes = lista.iterator();
-            while (iteradorBienes.hasNext()){
-                if(iteradorBienes.next().ID ==ID) return iteradorBienes.next();
-            }
-            return null;
-        }
+//       public static Bien buscarBien(int ID){
+//            //Busca un bien y retorna un bien
+//            Iterator<Bien> iteradorBienes = lista.iterator();
+//            while (iteradorBienes.hasNext()){
+//                if(iteradorBienes.next().ID ==ID) return iteradorBienes.next();
+//            }
+//            return null;
+//        }
        
-        public void cambiarEstado(int ID){
-            Bien bien2 = buscarBien(ID);
+        public void cambiarEstado(int ID, Coordinador cord){
+            Bien bien2 = cord.buscar(ID);
             if (bien2 == null){
                 //Muestra en pantalla que no se consiguio el bien que buscamos
             } else{

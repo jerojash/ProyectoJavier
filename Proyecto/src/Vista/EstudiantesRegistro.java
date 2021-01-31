@@ -214,7 +214,7 @@ public class EstudiantesRegistro extends javax.swing.JFrame {
         // guardar datos y mostrar mensaje guardados
         boolean res = control.registrar(2);
         if(res==true){
-            JOptionPane.showMessageDialog(null, "Profesor registrado correctamente"); 
+            JOptionPane.showMessageDialog(null, "Estudiante registrado correctamente"); 
             Estudiantes ventana = new Estudiantes();
             ventana.setVisible(true);
             this.setVisible(false);

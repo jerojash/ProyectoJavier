@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Bien;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPasswordField;
@@ -8,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import Model.Coordinador;
 import Model.Estudiante;
+import Model.Instrumento;
 import Model.Profesor;
 import Model.Usuario;
 import Vista.Inicio;
@@ -19,6 +21,7 @@ import Vista.ProfesoresRegistro;
 import Vista.Registro;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,10 +32,12 @@ public class Control {
     private static Coordinador coordinador;
     private static int op;
     
-    JTextField usuario, apellido, cedula, nombre;
+    JTextField usuario, apellido, cedula, nombre,ID,tipo;
     JPasswordField JPassword, JVerificarC;
     JLabel usuarioLabel;
     JTable tabla;
+    JComboBox dd, mm, yy;
+    JRadioButton profesor, estudiante;
     
     //Inicio
     public Control(JTextField usuario, JPasswordField password) { 
@@ -64,9 +69,30 @@ public class Control {
         this.cedula = cedula;
         this.nombre = nombre;
     }
-
+    
+    //Listas
     public Control(JTable tabla) {
         this.tabla = tabla;
+    }
+    
+    //Registrar Instrumento
+
+    public Control(JTextField ID, JTextField tipo) {
+        this.ID = ID;
+        this.tipo = tipo;
+    }
+    
+   //Registrar prestamo de un instrumento
+
+    public Control(JTextField cedula, JTextField ID, JComboBox dd, JComboBox mm, JComboBox yy, JRadioButton profesor, JRadioButton estudiante) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.ID = ID;
+        this.dd = dd;
+        this.mm = mm;
+        this.yy = yy;
+        this.profesor = profesor;
+        this.estudiante = estudiante;
     }
     
     public void ingresar(Inicio ini){
@@ -83,9 +109,9 @@ public class Control {
                 MenuPrincipal ventana = new MenuPrincipal();
                 ventana.setVisible(true);
                 ini.setVisible(false);
+                coordinador = Coordinador.buscarCoordinador(usuario.getText().toLowerCase().replace(" ", ""));
             }
         }
-        Control.coordinador = Coordinador.buscarCoordinador(usuario.getText().toLowerCase().replace(" ", ""));
     }
     
     public void olvidoClave(Inicio ini){
@@ -267,4 +293,67 @@ public class Control {
     }
     
     
+    public void registrarInstrumento(){
+        //Si alguno de los campos esta vacio
+        if(ID.getText().isEmpty() || tipo.getText().isEmpty()) JOptionPane.showMessageDialog(null, "Complete todos los campos solicitados.");
+        
+        else{
+            int idInteger;
+            
+            try{ //Capturo la excepcion
+                idInteger = Integer.parseInt(ID.getText().replace(" ", ""));
+
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado un ID invalida. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            if (coordinador.buscar(idInteger)!=null){//Si ya existe un bien con ese ID
+            JOptionPane.showMessageDialog(null, "Ya existe un bien que contenga este ID.");
+            
+            }else{
+                coordinador.agregar(idInteger, tipo.getText().replace(" ", ""));
+                JOptionPane.showMessageDialog(null, "El instrumento se ha registrado correctamente.");
+            }
+        }
+    }
+    
+    public void prestamoInstrumento(JFrame ventana1, JFrame ventana2){
+        if(ID.getText().isEmpty()||cedula.getText().isEmpty())JOptionPane.showMessageDialog(null, "Rellene todos los campos solicitados");
+        else {
+            int idInteger, ced;
+            try{ //Capturo la excepcion
+                idInteger = Integer.parseInt(ID.getText().replace(" ", ""));
+                
+
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalida en alguno de los campos. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            try{ //Capturo la excepcion
+               
+                ced = Integer.parseInt(cedula.getText().replace(" ", ""));
+
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalida en alguno de los campos. Intente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            if(Coordinador.buscarUsuario(ced)==null) JOptionPane.showMessageDialog(null, "La cedula no se encuentra registrada en el sistema");
+            
+            else if(coordinador.buscar(idInteger)==null){ JOptionPane.showMessageDialog(null, "El instrumento que acaba de ingresar no se encuentra");
+            }
+            else{
+                    coordinador.prestamo(Integer.parseInt(dd.getSelectedItem().toString()), 
+                                                                                            Integer.parseInt(mm.getSelectedItem().toString()), 
+                                                                                            Integer.parseInt(yy.getSelectedItem().toString()), 
+                                                                                            Coordinador.buscarUsuario(ced), 
+                                                                                            (Instrumento)coordinador.buscar(idInteger));
+                    JOptionPane.showMessageDialog(null, "El prestamo se ha realizado con exito");
+                    activaVentana(ventana1, ventana2);
+                    }
+            }
+        }
+        
 }
