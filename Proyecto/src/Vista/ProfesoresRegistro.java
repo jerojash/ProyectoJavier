@@ -1,11 +1,13 @@
 package Vista;
 
+import Controller.Control;
 import javax.swing.JOptionPane;
 
 public class ProfesoresRegistro extends javax.swing.JFrame {
-
+    Control control;
     public ProfesoresRegistro() {
         initComponents();
+        control = new Control(apellidoProf,cedulaProf,nombreProf);
         this.setLocationRelativeTo(null);
     }
 
@@ -200,9 +202,13 @@ public class ProfesoresRegistro extends javax.swing.JFrame {
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         // guardar datos mostrar mensaje guardados
-        Profesores ventana = new Profesores();
-        ventana.setVisible(true);
-        this.setVisible(false);
+        if(control.registrar(1)==true){
+            JOptionPane.showMessageDialog(null, "Profesor registrado correctamente"); 
+            Profesores ventana = new Profesores();
+            ventana.setVisible(true);
+            this.setVisible(false);
+        }
+        
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed

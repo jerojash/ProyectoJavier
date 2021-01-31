@@ -13,6 +13,7 @@ public class Registro extends javax.swing.JFrame {
         initComponents();
         control = new Control(User, apellidoC, cedulaC, nombreC, Clave, Verificar);
         this.setLocationRelativeTo(null);
+        control.desactivar();
     }
 
     Registro(Usuario regUser) {
@@ -274,9 +275,15 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_cedulaCActionPerformed
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
-        Inicio ventana = new Inicio();
-        ventana.setVisible(true);
-        this.setVisible(false);
+        if(Control.getOp() == 1){
+                
+                Inicio ventana = new Inicio();
+                ventana.setVisible(true);
+            }else{
+              Coordinadores ventana = new Coordinadores();
+              ventana.setVisible(true);
+            }
+            this.setVisible(false);
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked

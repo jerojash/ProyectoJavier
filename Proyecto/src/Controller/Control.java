@@ -12,6 +12,7 @@ import Model.Profesor;
 import Model.Usuario;
 import Vista.Inicio;
 import Vista.ClaveNueva;
+import Vista.Coordinadores;
 import Vista.MenuPrincipal;
 import Vista.Profesores;
 import Vista.ProfesoresRegistro;
@@ -25,6 +26,8 @@ public class Control {
     
     
     private static String userStatic;
+    private static Coordinador coordinador;
+    private static int op;
     
     JTextField usuario, apellido, cedula, nombre;
     JPasswordField JPassword, JVerificarC;
@@ -55,8 +58,7 @@ public class Control {
     }
     
     //RegistroProfesores / RegistroEstudiante
-    public Control(JTextField usuario, JTextField apellido, JTextField cedula, JTextField nombre) {
-        this.usuario = usuario;
+    public Control(JTextField apellido, JTextField cedula, JTextField nombre) {
         this.apellido = apellido;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -80,6 +82,7 @@ public class Control {
                 ini.setVisible(false);
             }
         }
+        Control.coordinador = Coordinador.buscarCoordinador(usuario.getText().toLowerCase().replace(" ", ""));
     }
     
     public void olvidoClave(Inicio ini){
@@ -110,6 +113,7 @@ public class Control {
     }
     
     public void registrar(Registro ini){
+        
         int ced=0;
         //Decifro las claves
         String password = new String(JPassword.getPassword());
@@ -144,30 +148,30 @@ public class Control {
                 return;
             }
             //Si las claves coinciden, y todas las validaciones son correctas, se puede registrar
-
-            Coordinador.registrar(nombre.getText(), apellido.getText(), usuario.getText().toLowerCase().replace(" ", ""), password, ced);    
-
-            //Y salimos de la vista
-            Inicio ventana = new Inicio();
-            ventana.setVisible(true);
-            ini.setVisible(false);
-
+            if(Control.getOp() == 1){
+                Coordinador.registrar(nombre.getText(), apellido.getText(), usuario.getText().toLowerCase().replace(" ", ""), password, ced);    
+                //Y salimos de la vista        
+                Inicio ventana = new Inicio();
+                ventana.setVisible(true);
+                ini.setVisible(false);
+            }else{          
+                coordinador.editarPerfil(nombre.getText(), apellido.getText(), usuario.getText().toLowerCase().replace(" ", ""), ced, password); 
+                Coordinadores ventana = new Coordinadores();
+              ventana.setVisible(true);
+              ini.setVisible(false);
+            }
         } else JOptionPane.showMessageDialog(null, "Las claves deben coincider. Intente de nuevo");
             //Las claves no coinciden
-            JOptionPane.showMessageDialog(null, "El usuario "+usuario.getText()+" ya se encuentra registrado. Intente con otro usuario.");
-            
+            //activaVentana(this,this);
     }
     
     public boolean registrar(int opcion){ //opcion = 1 si es profesor y 2 si es estudiante 
         int ced=3;
         //No ha llenado todos los campos
-        if(usuario.getText().isEmpty()||nombre.getText().isEmpty()||apellido.getText().isEmpty()||cedula.getText().isEmpty()){
+        if(nombre.getText().isEmpty()||apellido.getText().isEmpty()||cedula.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Rellene todos los campos solicitados"); 
             
-        }else if(Coordinador.buscarCoordinador(usuario.getText().replace(" ", "").toLowerCase())!=null){
-            //Si ya existe ese usuario en la base de dato
-            JOptionPane.showMessageDialog(null, "El usuario "+usuario.getText()+" ya se encuentra registrado. Intente con otro usuario.");
-        } else{ 
+        }else{ 
             try{ //Capturo la excepcion
                 ced = Integer.parseInt(cedula.getText().replace(" ", ""));
 
@@ -192,18 +196,46 @@ public class Control {
     }
         return false;
     }
+    
     public void llenarTabla(Usuario regPer, JTable tablaPersonas,ArrayList<Usuario> lista ){  
-      
-      String[] columna = { "Cédula", "Nombre y Apellido", "Email" };
-      DefaultTableModel dtm = new DefaultTableModel(null,columna);
-      lista= regPer.getPersonas();
-      for (Persona per : lista)
-          {
-            String[] row = {Integer.toString(per.getCedula()), per.getNombres(),per.getEmail() };
-            dtm.addRow(row);
-          }
-      tablaPersonas.setModel(dtm);
+//      
+//      String[] columna = { "Cédula", "Nombre y Apellido", "Email" };
+//      DefaultTableModel dtm = new DefaultTableModel(null,columna);
+//      lista= regPer.getPersonas();
+//      for (Persona per : lista)
+//          {
+//            String[] row = {Integer.toString(per.getCedula()), per.getNombres(),per.getEmail() };
+//            dtm.addRow(row);
+//          }
+//      tablaPersonas.setModel(dtm);
+    }
+    
+    public void activaVentana(JFrame ventana,JFrame ventana2) {
+        
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        ventana2.dispose(); //elimina la ventana de la memoria, incluyendo datos
+        //el dispose() garantiza que no dejes ventanas ejecutándose
+        //no se almacenan datos en este ejemplo
+     }
 
-   }
+    public static int getOp() {
+        return op;
+    }
+
+    public static void setOp(int op) {
+        Control.op = op;
+    }
+    
+    public void desactivar(){
+        if(Control.getOp() != 1){ 
+            usuario.setEnabled(false);
+            cedula.setText(coordinador.getCedula()+"");
+            usuario.setText(coordinador.getUsuario());
+            nombre.setText(coordinador.getNombre());
+            apellido.setText(coordinador.getApellido());
+        }
+    }
+    
     
 }
